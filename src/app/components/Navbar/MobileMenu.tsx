@@ -1,25 +1,32 @@
 'use client';
 import React, { useState, useLayoutEffect } from 'react'
-import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface MenuProps {
     menu: {
         name: string,
         link: string
     }[]
-    pathname: string
 }
 
 const MenuOutline = () => (
     <svg width={36} height={36} xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512">
-        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
-            stroke-width="32" d="M80 160h352M80 256h352M80 352h352" />
+        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10"
+            strokeWidth="32" d="M80 160h352M80 256h352M80 352h352" />
     </svg>
 )
 
-export default function MobileMenu({ menu, pathname }: MenuProps): React.JSX.Element {
+export default function MobileMenu({ menu }: MenuProps): React.JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const toggleMenu = () => setOpen(!open)
+
+    const pathname = usePathname()
+    const router = useRouter()
+
+    const handleRoute = (link: string) => {
+        router.push(link)
+        setOpen(false)
+    }
 
     useLayoutEffect(() => {
         const body = document.querySelector('body')
@@ -39,28 +46,27 @@ export default function MobileMenu({ menu, pathname }: MenuProps): React.JSX.Ele
             >
                 <MenuOutline />
             </button>
-            <div className={
-                `
-                ${open ? 'translate-x-0' : '-translate-x-full'}
-                transition-transform duration-300 ease-in-out fixed top-20 right-0 h-screen w-screen bg-primary-white 
-                z-20
-                `
-            }>
+            <div 
+            className={
+                `transition-transform duration-300 ease-in-out fixed top-20 right-0 h-screen w-screen bg-primary-white 
+                z-20`
+            }
+            style={{
+                transform: open ? 'translateX(0)' : 'translateX(-100%)'
+            }}
+            >
                 <ul className='flex flex-col'>
                     {menu.map((item) => (
-                        <Link
-                            href={item.link}
-                            key={item.link}
-                        >
-                            <li className={`
+                        <li className={`
                             ${pathname === item.link ? 'text-secondary-blue' : 'text-primary-blue'} 
                             py-4 px-8 
                             text-2xl hover:text-secondary-blue transition-colors cursor-pointer
                             `}
-                            >
-                                {item.name}
-                            </li>
-                        </Link>
+                            onClick={() => handleRoute(item.link)}
+                            key={item.link}
+                        >
+                            {item.name}
+                        </li>
                     ))}
                 </ul>
             </div>

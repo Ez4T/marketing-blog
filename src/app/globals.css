@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     height: 100%;
 }
@@ -15,3 +21,34 @@ body {
 body nav, body footer {
     @apply text-primary;
 }
+
+.font-loader {
+    animation-name: slideInFromLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    transform: translateX(-100%);
+}
+
+.font-loader:nth-child(2) {
+    animation-delay: 100ms;
+}
+
+.font-loader:nth-child(3) {
+    animation-delay: 200ms;
+}
+
+.font-loader:nth-child(4) {
+    animation-delay: 300ms;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
