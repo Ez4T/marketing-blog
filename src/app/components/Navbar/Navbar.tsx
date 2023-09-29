@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
+import MobileMenu from "./MobileMenu";
 
 const navMenu = [
   {
@@ -20,13 +21,10 @@ const navMenu = [
 
 export default function Navbar(): React.JSX.Element {
   const headersList = headers();
-  const pathname = headersList.get("x-pathname")
+  const pathname = headersList.get("x-pathname") || "";
   return (
     <nav className="h-20 bg-primary">
-      <div className="px-2 lg:px-16 grid 
-      grid-cols-[200px,1fr]
-      lg:grid-cols-[200px,1fr,200px] 
-      items-center h-full gap-2">
+      <div className="px-2 lg:px-16 grid grid-cols-[200px,1fr] sm:grid-cols-[200px,1fr,200px] items-center h-full gap-2">
         <div id="company-logo">
           <Link href="/">
             <Image
@@ -37,8 +35,8 @@ export default function Navbar(): React.JSX.Element {
             />
           </Link>
         </div>
-        <div id="nav-menu" className="hidden sm:block flex-1 mx-auto">
-          <ul className="flex justify-center gap-8 select-none">
+        <div id="nav-menu" className="hidden sm:block">
+          <ul className="w-full flex gap-8 select-none">
             {navMenu.map((item) => (
               <li key={item.link}
                 className={`
@@ -52,18 +50,10 @@ export default function Navbar(): React.JSX.Element {
             ))}
           </ul>
         </div>
-        <div id="nav-search-box" className="hidden lg:block">
-          <input
-            className="w-full text-black
-                bg-secondary bg-opacity-50 p-2 focus:outline-none rounded-sm
-                placeholder-black placeholder-opacity-50 focus:bg-opacity-100 hover:bg-opacity-100
-                transition-colors
-                "
-            type="text"
-            required
-            placeholder="Search..."
-          />
-        </div>
+        <MobileMenu
+          menu={navMenu}
+          pathname={pathname}
+        />
       </div>
     </nav>
   );
