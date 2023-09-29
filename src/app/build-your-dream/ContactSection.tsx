@@ -1,8 +1,12 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import Button from '../components/Button/Button';
 
 export default function ContactSection(): React.JSX.Element {
+
+    const router = useRouter();
+
     return (
         <div className="w-full h-80 bg-secondary-blue bg-opacity-20">
             <div className="mx-auto flex flex-col h-full items-center justify-center gap-4">
@@ -17,6 +21,7 @@ export default function ContactSection(): React.JSX.Element {
                 <Button
                     type="button"
                     text="Talk to me"
+                    onClick={() => router.push('/contact')}
                 />
             </div>
         </div>

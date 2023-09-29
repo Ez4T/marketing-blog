@@ -52,7 +52,7 @@ export default function MobileMenu({ menu }: MenuProps): React.JSX.Element {
                 z-20`
             }
             style={{
-                transform: open ? 'translateX(0)' : 'translateX(-100%)'
+                transform: open ? 'translateX(0)' : 'translateX(100%)'
             }}
             >
                 <ul className='flex flex-col'>
