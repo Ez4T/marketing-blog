@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import Favicon from './dreamcatcher-logo.png'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,13 +15,13 @@ export const metadata: Metadata = {
       rel: "icon",
       type: "image/png",
       sizes: "32x32",
-      url: "/dreamcatcher-logo.png",
+      url: Favicon.src,
     },
     {
       rel: "icon",
       type: "image/png",
       sizes: "16x16",
-      url: "/dreamcatcher-logo.png",
+      url: Favicon.src,
     }
   ]
 };
